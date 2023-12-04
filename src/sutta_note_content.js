@@ -12,9 +12,21 @@ async function sutta_note_content(sutta, output_directory) {
     if (existing_content) {
         // TODO: merge
     } else {
+        //TODO: api call for titles
         return `### Sutta\n\n${sutta_text}`
     }
     return sutta_text;
+}
+
+//TODO: change functions to lowerCamelCase
+function note_properties(sutta) {
+    return 
+    `---
+    aliases: 
+        - ${ sutta + ": " + }
+        - ${'hi'}
+        - ${'hi'}
+    `
 }
 
 module.exports = sutta_note_content;
