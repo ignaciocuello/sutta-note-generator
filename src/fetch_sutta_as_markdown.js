@@ -3,7 +3,7 @@ const { get_sutta_json } = require('./get_sutta_json');
 // fetch sutta using suttacentral get api
 async function fetch_sutta_as_markdown(sutta) {
     let sutta_json = await get_sutta_json(sutta);
-    //TODO: get title from suttaplex card
+    //TODO: get title from section aann.0.last
     const title = sutta_json.translation_text[sutta_json.keys_order[2]];
     let output = '';
     output += `#### ${title}\n\n`
@@ -13,9 +13,11 @@ async function fetch_sutta_as_markdown(sutta) {
 
 function translation_body(sutta_json) {
     let body = '';
+    //TODO: parse keys properly, skip section aann.0.n
     const keys = sutta_json.keys_order.slice(3);
     for (let key of keys) {
         let text = sutta_json.translation_text[key]
+        //TODO: handle verses
         if (text) {
             if (sutta_json.html_text[key].startsWith('<p>')) {
                 body += '>'
