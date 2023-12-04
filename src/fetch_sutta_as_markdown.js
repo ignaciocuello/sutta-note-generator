@@ -1,4 +1,4 @@
-const get_sutta_json = require('./get_sutta_json');
+const { get_sutta_json } = require('./get_sutta_json');
 
 // fetch sutta using suttacentral get api
 async function fetch_sutta_as_markdown(sutta) {

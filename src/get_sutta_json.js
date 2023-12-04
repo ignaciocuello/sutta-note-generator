@@ -12,7 +12,7 @@ async function get_sutta_json(sutta) {
 
 async function get_suttaplex_json(sutta) {
     const sutta_id = get_sutta_id(sutta);
-    const url = `https://suttacentral.net/api/sutta/${sutta_id}/sujato?lang=en&siteLanguage=en`; 
+    const url = `https://suttacentral.net/api/suttas/${sutta_id}/sujato?lang=en&siteLanguage=en`; 
     const response = await fetch(url);
     if (!response.ok) {
         throw new Error('Network response was not ok');
