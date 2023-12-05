@@ -13,6 +13,7 @@ async function sutta_note_content(sutta, output_directory) {
     if (existing_content) {
         // TODO: merge
     } else {
+        // TODO: add sutta summary if available
         const properties = await note_properties(sutta);
         return `${properties}\n### Sutta\n\n${sutta_text}`
     }
