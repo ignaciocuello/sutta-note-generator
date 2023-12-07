@@ -1,7 +1,6 @@
 const { get_sutta_json, get_suttaplex_json } = require('./get_sutta_json');
 const parse_sutta_key = require('./parse_sutta_key');
 
-// fetch sutta using suttacentral get api
 async function fetch_sutta_as_markdown(sutta) {
     const sutta_json = await get_sutta_json(sutta);
     const suttaplex_json = await get_suttaplex_json(sutta);
@@ -12,6 +11,7 @@ async function fetch_sutta_as_markdown(sutta) {
     return output;
 }
 
+//TODO: test MN133
 function translation_body(sutta, sutta_json) {
     let body = '';
     const keys = sutta_json.keys_order;
@@ -25,14 +25,22 @@ function translation_body(sutta, sutta_json) {
             let text = sutta_json.translation_text[key]
             //TODO: handle verses
             if (text) {
-                if (sutta_json.html_text[key].startsWith('<p>')) {
-                    body += '>'
-                }
-                if (sutta_json.html_text[key].endsWith('</p>')) {
-                    body += `${text.trim()}\n>\n`;
+                const html = sutta_json.html_text[key];
+                if (html.includes('verse-line')) {
+                    body += `>    >${text}\n`
+                    if (html.includes('</p>')) {
+                        body += '>\n';
+                    }
                 } else {
-                    body += text;
-                }
+                    if (html.includes('<p>')) {
+                        body += '>'
+                    }
+                    if (html.includes('</p>')) {
+                        body += `${text.trim()}\n>\n`;
+                    } else {
+                        body += text;
+                    }
+                } 
             }
         }
     }
