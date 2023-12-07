@@ -22,8 +22,8 @@ function translation_body(sutta, sutta_json) {
         if (parsedKey.sutta == sutta_id && 
             parsedKey.segment != '0' && 
             parsedKey.sub_segment != '0') {
-            let text = sutta_json.translation_text[key]
-            //TODO: handle verses
+            let text = sutta_json.translation_text[key] 
+            //TODO: I think we need to replace text with '' if it's undefined
             if (text) {
                 const html = sutta_json.html_text[key];
                 if (html.includes('verse-line')) {
