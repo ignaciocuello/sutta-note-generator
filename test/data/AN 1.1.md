@@ -1,8 +1,8 @@
 ---
 aliases:
-  - "AN 1.1: Lokāyatikasutta"
-  - Lokāyatikasutta
-  - "AN 1.1: A Cosmologist"
+  - "AN 1.1: Cittapariyādānavagga"
+  - Cittapariyādānavagga
+  - "AN 1.1: What Occupies the Mind"
 tags:
   - "#sutta"
 ---

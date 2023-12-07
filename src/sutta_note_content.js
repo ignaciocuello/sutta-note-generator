@@ -8,7 +8,6 @@ const fetch_sutta_as_markdown = require('./fetch_sutta_as_markdown');
 async function sutta_note_content(sutta, output_directory) {
     const sutta_file = path.join(output_directory, `${sutta}.md`);
     const existing_content = fs.existsSync(sutta_file) ? fs.readFileSync(sutta_file, 'utf8') : '';
-    // TODO: write fetch_sutta_as_markdown
     const sutta_text = await fetch_sutta_as_markdown(sutta)
     if (existing_content) {
         // TODO: merge
