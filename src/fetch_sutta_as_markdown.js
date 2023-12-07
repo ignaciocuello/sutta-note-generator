@@ -3,7 +3,7 @@ const { get_sutta_json } = require('./get_sutta_json');
 // fetch sutta using suttacentral get api
 async function fetch_sutta_as_markdown(sutta) {
     let sutta_json = await get_sutta_json(sutta);
-    //TODO: get title from section aann.0.last
+    //TODO: get title from suttaplex
     const title = sutta_json.translation_text[sutta_json.keys_order[2]];
     let output = '';
     output += `#### ${title}\n\n`

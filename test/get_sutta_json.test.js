@@ -41,7 +41,7 @@ test('Return json for AN 1.1', async () => {
         if (req.url.endsWith('/api/bilarasuttas/an1.1-10/sujato?lang=en')) {
             return mock_sutta_json;
         } else if (req.url.endsWith('/api/suttas/an1.1/sujato?lang=en&siteLanguage=en')) {
-            return mock_suttaplex_json;
+            return mock_suttaplex_json
         } else {
             return {
                 status: 404,
