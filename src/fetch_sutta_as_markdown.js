@@ -1,4 +1,5 @@
 const { get_sutta_json, get_suttaplex_json } = require('./get_sutta_json');
+const parse_sutta_key = require('./parse_sutta_key');
 
 // fetch sutta using suttacentral get api
 async function fetch_sutta_as_markdown(sutta) {
@@ -7,25 +8,31 @@ async function fetch_sutta_as_markdown(sutta) {
     const title = suttaplex_json.translation.title;
     let output = '';
     output += `#### ${title}\n\n`
-    output += translation_body(sutta_json);
+    output += translation_body(sutta, sutta_json);
     return output;
 }
 
-function translation_body(sutta_json) {
+function translation_body(sutta, sutta_json) {
     let body = '';
-    //TODO: parse keys properly, skip section aann.0.n
-    const keys = sutta_json.keys_order.slice(3);
+    const keys = sutta_json.keys_order;
+    const sutta_id = get_sutta_id(sutta);
+
     for (let key of keys) {
-        let text = sutta_json.translation_text[key]
-        //TODO: handle verses
-        if (text) {
-            if (sutta_json.html_text[key].startsWith('<p>')) {
-                body += '>'
-            }
-            if (sutta_json.html_text[key].endsWith('</p>')) {
-                body += `${text.trim()}\n>\n`;
-            } else {
-                body += text;
+        const parsedKey = parse_sutta_key(key);
+        if (parsedKey.sutta == sutta_id && 
+            parsedKey.segment != '0' && 
+            parsedKey.sub_segment != '0') {
+            let text = sutta_json.translation_text[key]
+            //TODO: handle verses
+            if (text) {
+                if (sutta_json.html_text[key].startsWith('<p>')) {
+                    body += '>'
+                }
+                if (sutta_json.html_text[key].endsWith('</p>')) {
+                    body += `${text.trim()}\n>\n`;
+                } else {
+                    body += text;
+                }
             }
         }
     }
@@ -33,6 +40,12 @@ function translation_body(sutta_json) {
         body = body.slice(0, -3);
     }
     return body;
+}
+
+//TODO: deduplicate
+function get_sutta_id(sutta) {
+    const sutta_id = sutta.replace(/\s+/g, '').toLowerCase();
+    return sutta_id;
 }
 
 module.exports = fetch_sutta_as_markdown;
