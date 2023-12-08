@@ -23,7 +23,6 @@ function translation_body(sutta, sutta_json) {
             parsedKey.segment != '0' && 
             parsedKey.sub_segment != '0') {
             let text = sutta_json.translation_text[key] 
-            //TODO: I think we need to replace text with '' if it's undefined
             if (text) {
                 const html = sutta_json.html_text[key];
                 if (html.includes('verse-line')) {
@@ -32,7 +31,9 @@ function translation_body(sutta, sutta_json) {
                         body += '>\n';
                     }
                 } else {
-                    if (html.includes('<p>')) {
+                    //The or is to account for empty segments that contain an opening <p
+                    //bit hacky, so fix later
+                    if (html.includes('<p>') || body.endsWith('\n')) {
                         body += '>'
                     }
                     if (html.includes('</p>')) {
