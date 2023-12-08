@@ -9,19 +9,28 @@ async function sutta_note_content(sutta, output_directory) {
     const sutta_file = path.join(output_directory, `${sutta}.md`);
     const existing_content = fs.existsSync(sutta_file) ? fs.readFileSync(sutta_file, 'utf8') : '';
     const sutta_text = await fetch_sutta_as_markdown(sutta)
+
+    const suttaplex_json = await get_suttaplex_json(sutta);
+    const properties = note_properties(sutta, suttaplex_json);
+    const summary = sutta_summary(suttaplex_json);
     if (existing_content) {
         // TODO: merge
     } else {
-        // TODO: add sutta summary if available
-        const properties = await note_properties(sutta);
-        return `${properties}\n### Sutta\n\n${sutta_text}`
+      return `${properties}${summary}\n### Sutta\n\n${sutta_text}`
     }
     return sutta_text;
 }
 
+function sutta_summary(suttaplex_json) {
+    const summary = suttaplex_json.suttaplex.blurb;
+    if (summary) {
+        return `\n### Description\n\n- ${summary}\n`;
+    }
+    return '';
+}
+
 //TODO: change functions to lowerCamelCase
-async function note_properties(sutta) {
-    const suttaplex_json = await get_suttaplex_json(sutta);
+function note_properties(sutta, suttaplex_json) {
     const title = suttaplex_json.translation.title.trim();
     const root_title = suttaplex_json.root_text.title.trim();
     return `---
