@@ -13,6 +13,7 @@ async function note_suttas(options) {
     if (suttas_file) {
         let suttas_text = fs.readFileSync(suttas_file, 'utf8');
         suttas = suttas_text.split('\n');
+        suttas = suttas.map(sutta => sutta.replace('*', '')).filter(sutta => !sutta.startsWith('//'))
     } else if (sutta) {
         suttas = [sutta];
     } else {
@@ -22,9 +23,11 @@ async function note_suttas(options) {
     //TODO: this should only succeed if all suttas succeed, and only update the files in that case
     let output = []
     for (let i = 0; i < suttas.length; i++) {
+        console.log(`"${suttas[i]}"`);
         const content = await sutta_note_content(suttas[i], output_directory);
         if (content) {
             output.push({sutta: suttas[i], content: content});
+            console.log('Noted ' + suttas[i]);
         } else {
             console.error(`Error noting ${suttas[i]}`)
         }
