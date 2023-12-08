@@ -25,14 +25,18 @@ async function note_suttas(options) {
         const content = await sutta_note_content(suttas[i], output_directory);
         if (content) {
             output.push({sutta: suttas[i], content: content});
+        } else {
+            console.error(`Error noting ${suttas[i]}`)
         }
     }
 
-    for (let i = 0; i < output.length; i++) {
-        const sutta = output[i].sutta;
-        const content = output[i].content;
-        const sutta_file = path.join(output_directory, `${sutta}.md`);
-        fs.writeFileSync(sutta_file, content);
+    if (output.length == suttas.length) {
+        for (let i = 0; i < output.length; i++) {
+            const sutta = output[i].sutta;
+            const content = output[i].content;
+            const sutta_file = path.join(output_directory, `${sutta}.md`);
+            fs.writeFileSync(sutta_file, content);
+        }
     }
    return output.length;
 }

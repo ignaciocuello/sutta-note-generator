@@ -15,10 +15,11 @@ async function sutta_note_content(sutta, output_directory) {
     const summary = sutta_summary(suttaplex_json);
     if (existing_content) {
         // TODO: merge
+        //for now just skip it
+        return undefined;
     } else {
       return `${properties}${summary}\n### Sutta\n\n${sutta_text}`
     }
-    return sutta_text;
 }
 
 function sutta_summary(suttaplex_json) {
