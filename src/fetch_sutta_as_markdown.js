@@ -11,7 +11,6 @@ async function fetch_sutta_as_markdown(sutta) {
     return output;
 }
 
-//TODO: test MN133
 function translation_body(sutta, sutta_json) {
     let body = '';
     const keys = sutta_json.keys_order;
