@@ -16,7 +16,8 @@ test('output note for SN 12.48 to Notes/Suttas/SN 12.48.md when file does not ex
 
 test('for real', async () => {
     const options = {
-        suttas_file: '/home/ignacio/Obsidian/Vaults/Ignacio/Ignacio/Suttas/Sutta List.md',
+        //suttas_file: '/home/ignacio/Obsidian/Vaults/Ignacio/Ignacio/Suttas/Sutta List.md',
+        sutta: 'MN 119',
         output_directory: '/home/ignacio/Obsidian/Vaults/Ignacio/Ignacio/Suttas/'
     }
     const succesful = await note_suttas(options);

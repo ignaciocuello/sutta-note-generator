@@ -23,3 +23,11 @@ test('Parse sutta key for dhp19:1', () => {
     expect(key.segment).toBe('1');
     expect(key.sub_segment).toBe(undefined);
 });
+
+test('Parse sutta key for mn19:4-5.6', () => {
+    const key_string = 'mn19:4-5.6';
+    const key = parse_sutta_key(key_string);
+    expect(key.sutta).toBe('mn19');
+    expect(key.segment).toBe('4-5');
+    expect(key.sub_segment).toBe('6');
+});

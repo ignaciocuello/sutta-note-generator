@@ -18,6 +18,7 @@ function translation_body(sutta, sutta_json) {
 
     for (let key of keys) {
         const parsedKey = parse_sutta_key(key);
+        //TODO: this should be sutta between sutta_id if sutta_id is a range
         if (parsedKey.sutta == sutta_id && 
             parsedKey.segment != '0' && 
             parsedKey.sub_segment != '0') {
