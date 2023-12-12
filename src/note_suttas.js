@@ -1,4 +1,5 @@
 const sutta_note_content = require('./sutta_note_content');
+const { program } = require('commander');
 const path = require('path');
 const fs = require('fs');
 
@@ -43,5 +44,15 @@ async function note_suttas(options) {
     }
    return output.length;
 }
+
+program
+.requiredOption('-o, --output_directory <directory>', 'Directory to output to')
+.requiredOption('-s, --sutta <id>', 'Sutta to note')
+program.parse();
+
+const options = program.opts();
+
+(async () => { await note_suttas(options); })();
+
 
 module.exports = note_suttas;
